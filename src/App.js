@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
+
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import {
     Ecommerce,
@@ -21,15 +22,32 @@ import {
     ColorMapping,
     Editor,
 } from './pages';
-import { useStateContext } from './contexts/ContextProvider';
-
 import './App.css';
 
+import { useStateContext } from './contexts/ContextProvider';
+
 const App = () => {
-    const { activeMenu } = useStateContext();
+    const {
+        setCurrentColor,
+        setCurrentMode,
+        currentMode,
+        activeMenu,
+        currentColor,
+        themeSettings,
+        setThemeSettings,
+    } = useStateContext();
+
+    useEffect(() => {
+        const currentThemeColor = localStorage.getItem('colorMode');
+        const currentThemeMode = localStorage.getItem('themeMode');
+        if (currentThemeColor && currentThemeMode) {
+            setCurrentColor(currentThemeColor);
+            setCurrentMode(currentThemeMode);
+        }
+    }, []);
 
     return (
-        <div>
+        <div className={currentMode === 'Dark' ? 'dark' : ''}>
             <BrowserRouter>
                 <div className="flex relative dark:bg-main-dark-bg">
                     <div
@@ -38,8 +56,10 @@ const App = () => {
                     >
                         <TooltipComponent content="Settings" position="Top">
                             <button
+                                type="button"
+                                onClick={() => setThemeSettings(true)}
                                 style={{
-                                    background: 'blue',
+                                    background: currentColor,
                                     borderRadius: '50%',
                                 }}
                                 className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
@@ -58,14 +78,18 @@ const App = () => {
                         </div>
                     )}
                     <div
-                        className={`dark:bg-main-dark-bg  bg-main-bg min-h-screen w-full ${
-                            activeMenu ? 'md:ml-72' : 'flex-2'
-                        }`}
+                        className={
+                            activeMenu
+                                ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
+                                : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
+                        }
                     >
                         <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
                             <Navbar />
                         </div>
                         <div>
+                            {themeSettings && <ThemeSettings />}
+
                             <Routes>
                                 {/* dashboard  */}
                                 <Route path="/" element={<Ecommerce />} />
@@ -114,6 +138,7 @@ const App = () => {
                                 <Route path="/stacked" element={<Stacked />} />
                             </Routes>
                         </div>
+                        <Footer />
                     </div>
                 </div>
             </BrowserRouter>
