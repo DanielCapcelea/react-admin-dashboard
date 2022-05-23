@@ -1,7 +1,35 @@
 import React from 'react';
+import {
+    KanbanComponent,
+    ColumnsDirective,
+    ColumnDirective,
+} from '@syncfusion/ej2-react-kanban';
+
+import { kanbanData, kanbanGrid } from '../data/mockData';
+import { Header } from '../components';
+import { Inject, Toolbar } from '@syncfusion/ej2-react-grids';
 
 const Kanban = () => {
-    return <div>kanban</div>;
+    const editing = { allowDeleting: true, allowEditing: true };
+    return (
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+            <Header category="App" title="Kanban" />
+            <KanbanComponent
+                id="kanban"
+                keyField="Status"
+                dataSource={kanbanData}
+                cardSettings={{ contentField: 'Summary', headerField: 'Id' }}
+                editSettings={editing}
+            >
+                <ColumnsDirective>
+                    {kanbanGrid.map((item, index) => (
+                        <ColumnDirective key={index} {...item} />
+                    ))}
+                </ColumnsDirective>
+                <Inject services={[Toolbar]} />
+            </KanbanComponent>
+        </div>
+    );
 };
 
 export default Kanban;
