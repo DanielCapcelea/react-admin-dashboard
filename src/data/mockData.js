@@ -42,6 +42,7 @@ import product4 from './assets/product4.jpg';
 import product5 from './assets/product5.jpg';
 import product6 from './assets/product6.jpg';
 import product7 from './assets/product7.jpg';
+import product10 from './assets/product10.jpg';
 import product8 from './assets/product8.jpg';
 
 export const gridOrderImage = (props) => (
@@ -2141,7 +2142,7 @@ export const ordersData = [
         Location: 'USA',
         Status: 'complete',
         StatusBg: '#8BE78B',
-        ProductImage: product4,
+        ProductImage: product10,
     },
     {
         OrderID: 845954,
