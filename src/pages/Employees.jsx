@@ -13,6 +13,7 @@ import { employeesData, employeesGrid } from '../data/mockData';
 import { Header } from '../components';
 
 const Employees = () => {
+    const toolbar = ['Search'];
     return (
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
             <Header category="Page" title="Employees" />
@@ -22,6 +23,7 @@ const Employees = () => {
                 allowPaging
                 allowSorting
                 pageSettings={{ pageCount: 5 }}
+                toolbar={toolbar}
             >
                 <ColumnsDirective>
                     {employeesGrid.map((item, index) => (

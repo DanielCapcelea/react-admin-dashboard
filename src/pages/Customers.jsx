@@ -16,7 +16,7 @@ import { customersData, customersGrid } from '../data/mockData';
 import { Header } from '../components';
 
 const Customers = () => {
-    const selectionsettings = { persistSelection: true };
+    const selectionSettings = { persistSelection: true };
     const toolbarOptions = ['Delete'];
     const editing = { allowDeleting: true, allowEditing: true };
 
@@ -28,7 +28,7 @@ const Customers = () => {
                 enableHover={false}
                 allowPaging
                 pageSettings={{ pageCount: 5 }}
-                selectionSettings={selectionsettings}
+                selectionSettings={selectionSettings}
                 toolbar={toolbarOptions}
                 editSettings={editing}
                 allowSorting
